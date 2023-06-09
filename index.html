@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Formulário de Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Cliente API</h1>
+
+    <h2>Novo Cliente</h2>
+    <label for="nomeInput">Nome:</label>
+    <input type="text" id="nomeInput" required><br>
+
+    <label for="emailInput">E-mail:</label>
+    <input type="email" id="emailInput" required><br>
+
+    <label for="cpfInput">CPF:</label>
+    <input type="text" id="cpfInput" required><br>
+
+    <button onclick="salvarCliente()">Salvar</button>
+
+    <h2>Buscar Cliente</h2>
+    <label for="idInput">ID:</label>
+    <input type="text" id="idInput" required><br>
+
+    <button onclick="buscarCliente()">Buscar</button>
+
+    <h2>Resposta</h2>
+    <div id="responseContainer" class="response"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/script.js"></script>
+
+</body>
+
+</html>
