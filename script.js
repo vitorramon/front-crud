@@ -1,5 +1,7 @@
- // Função para enviar os dados do formulário para a API
- async function cadastrarCliente(event) {
+const apiUrl = 'http://localhost:8080/clientes';
+
+// Função para enviar os dados do formulário para a API
+async function cadastrarCliente(event) {
   event.preventDefault();
 
   const form = document.getElementById('cadastroClienteForm');
@@ -14,7 +16,7 @@
   };
 
   try {
-    const response = await fetch('http://localhost:8080/clientes', {
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -29,6 +31,27 @@
     const data = await response.json();
     console.log('Cliente cadastrado:', data);
     form.reset();
+    exibirClientes(); // Atualiza a lista de clientes
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function exibirClientes() {
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error('Erro ao buscar clientes');
+    }
+    const data = await response.json();
+    const clientesList = document.getElementById('clientesList');
+    clientesList.innerHTML = ''; // Limpa a lista de clientes
+
+    data.forEach(cliente => {
+      const listItem = document.createElement('li');
+      listItem.textContent = `${cliente.nome} (${cliente.email})`;
+      clientesList.appendChild(listItem);
+    });
   } catch (error) {
     console.error(error);
   }
@@ -36,3 +59,4 @@
 
 const form = document.getElementById('cadastroClienteForm');
 form.addEventListener('submit', cadastrarCliente);
+
