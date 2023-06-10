@@ -49,13 +49,19 @@ async function exibirClientes() {
 
     data.forEach(cliente => {
       const listItem = document.createElement('li');
-      listItem.textContent = `${cliente.nome} (${cliente.email})`;
+      listItem.innerHTML = `
+        <strong>${cliente.nome} (${cliente.email})</strong><br>
+        Etnia: ${cliente.etnia}<br>
+        Gênero: ${cliente.genero}<br>
+        CEP: ${cliente.endereco.cep}<br>
+      `;
       clientesList.appendChild(listItem);
     });
   } catch (error) {
     console.error(error);
   }
 }
+
 
 const form = document.getElementById('cadastroClienteForm');
 form.addEventListener('submit', cadastrarCliente);

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Clientes Cadastrados</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-around;
+    }
+  </style>
+</head>
+<body>
+  <h1>Clientes Cadastrados</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Etnia</th>
+        <th>Gênero</th>
+        <th>CEP</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="clientesBody">
+    </tbody>
+  </table>
+</body>
+
+<script src="/consulta/script.js"></script>
