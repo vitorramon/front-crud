@@ -1,34 +1,38 @@
-const apiUrl = 'http://localhost:8080/cliente';
+ // Função para enviar os dados do formulário para a API
+ async function cadastrarCliente(event) {
+  event.preventDefault();
 
-    function salvarCliente() {
-      const nome = document.getElementById('nomeInput').value;
-      const cpf = document.getElementById('cpfInput').value;
-      const email = document.getElementById('emailInput').value;
+  const form = document.getElementById('cadastroClienteForm');
+  const cliente = {
+    nome: form.nome.value,
+    email: form.email.value,
+    etnia: form.etnia.value,
+    genero: form.genero.value,
+    endereco: {
+      cep: form.cep.value
+    }
+  };
 
-      const cliente = {
-        nome: nome,
-        cpf: cpf,
-        email: email
-      };
+  try {
+    const response = await fetch('http://localhost:8080/clientes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(cliente)
+    });
 
-      axios.post(apiUrl, cliente)
-        .then(response => {
-          document.getElementById('responseContainer').textContent = 'Cliente salvo: ' + JSON.stringify(response.data);
-        })
-        .catch(error => {
-          document.getElementById('responseContainer').textContent = 'Ocorreu um erro ao salvar o cliente: ' + error.message;
-        });
+    if (!response.ok) {
+      throw new Error('Erro ao cadastrar cliente');
     }
 
-    function buscarCliente() {
-      const id = document.getElementById('idInput').value;
-      const url = `${apiUrl}/${id}`;
+    const data = await response.json();
+    console.log('Cliente cadastrado:', data);
+    form.reset();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-      axios.get(url)
-        .then(response => {
-          document.getElementById('responseContainer').textContent = 'Cliente encontrado: ' + JSON.stringify(response.data);
-        })
-        .catch(error => {
-          document.getElementById('responseContainer').textContent = 'Ocorreu um erro ao buscar o cliente: ' + error.message;
-        });
-    }
+const form = document.getElementById('cadastroClienteForm');
+form.addEventListener('submit', cadastrarCliente);
